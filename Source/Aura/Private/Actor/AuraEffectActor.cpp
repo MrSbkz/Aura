@@ -28,6 +28,7 @@ void AAuraEffectActor::ApplyEffectToTarget(
 	const FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(
 		*EffectSpecHandle.Data.Get());
 
+	// Temporary way (I hope) to cancel infinite effect
 	const bool IsInfinite = EffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy ==
 		EGameplayEffectDurationType::Infinite;
 	if (IsInfinite && InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
