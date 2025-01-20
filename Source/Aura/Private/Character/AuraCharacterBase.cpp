@@ -1,12 +1,14 @@
 // Copyright PK
 
 #include "Character/AuraCharacterBase.h"
+#include "AbilitySystemComponent.h"
+#include "GameplayEffectTypes.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	Weapon= CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
@@ -23,4 +25,22 @@ void AAuraCharacterBase::BeginPlay()
 
 void AAuraCharacterBase::InitAbilityActorInfo()
 {
+}
+
+void AAuraCharacterBase::InitializePrimaryAttributes() const
+{
+	check(IsValid(GetAbilitySystemComponent()));
+	check(DefaultPrimaryAttributes);
+
+	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(
+		DefaultPrimaryAttributes,
+		1.f,
+		ContextHandle
+	);
+
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(
+		*SpecHandle.Data.Get(),
+		GetAbilitySystemComponent()
+	);
 }
