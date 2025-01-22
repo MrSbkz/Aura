@@ -30,6 +30,11 @@ void AAuraEnemyCharacter::UnHighlightActor()
 	Weapon->SetRenderCustomDepth(false);
 }
 
+int32 AAuraEnemyCharacter::GetPlayerLevel()
+{
+	return Level;
+}
+
 void AAuraEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
