@@ -49,6 +49,15 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
+/**
+ * FGameplayAttribute(*)() = TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr
+ * 
+ * typedef is specific to the FGameplayAttribute(), but TStaticFuncPtr is generic to any signature chosen
+ * typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr AttributeFuncPointer;
+*/
+template<class T>
+using TStaticFuncPtr = TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
@@ -61,6 +70,9 @@ public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
+	// I would rather use TMap<FGameplayTag, FGameplayAttribute> TagsToAttributes; instead
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
+	
 	/*
 	 * Primary Attributes
 	*/
