@@ -6,7 +6,6 @@
 #include "AbilitySystemComponent.h"
 #include "AuraAbilitySystemComponent.generated.h"
 
-class UAuraGameplayAbility;
 DECLARE_MULTICAST_DELEGATE_OneParam(EEffectAssetTagsSignature, const FGameplayTagContainer& /*AssetTags*/);
 
 UCLASS()
