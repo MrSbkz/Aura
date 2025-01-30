@@ -8,7 +8,7 @@
 #include "AuraInputComponent.generated.h"
 
 /**
- * 
+ * Input Component setup in the Editor: Project Settings->Input->Default Input Component Class
  */
 UCLASS()
 class AURA_API UAuraInputComponent : public UEnhancedInputComponent
