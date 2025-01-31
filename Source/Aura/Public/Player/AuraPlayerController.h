@@ -41,6 +41,11 @@ private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
+	
+	UAuraAbilitySystemComponent* GetASC();
+
+	void AutoRun();
+	
 
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
@@ -50,8 +55,6 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
-
-	UAuraAbilitySystemComponent* GetASC();
 
 	FVector CachedDestination = FVector::ZeroVector;
 	float FollowTime = 0.f;
