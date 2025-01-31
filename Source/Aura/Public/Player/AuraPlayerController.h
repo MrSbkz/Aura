@@ -45,7 +45,8 @@ private:
 	UAuraAbilitySystemComponent* GetASC();
 
 	void AutoRun();
-	
+
+	FHitResult CursorHit;
 
 	TScriptInterface<IEnemyInterface> LastActor;
 	TScriptInterface<IEnemyInterface> ThisActor;
