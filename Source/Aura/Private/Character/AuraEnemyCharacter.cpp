@@ -46,12 +46,12 @@ void AAuraEnemyCharacter::BeginPlay()
 
 	InitAbilityActorInfo();
 
-	if(UAuraUserWidget* AuraUserWidget = Cast<UAuraUserWidget>(HealthBar->GetUserWidgetObject()))
+	if (UAuraUserWidget* AuraUserWidget = Cast<UAuraUserWidget>(HealthBar->GetUserWidgetObject()))
 	{
 		// AuraEnemyCharacter(this class) is a WidgetController for EnemyHealthBar
 		AuraUserWidget->SetWidgetController(this);
 	}
-	
+
 	if (const UAuraAttributeSet* AuraAS = Cast<UAuraAttributeSet>(AttributeSet))
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAS->GetHealthAttribute()).AddLambda(
