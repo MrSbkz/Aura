@@ -19,7 +19,7 @@ class AURA_API UAuraAbilitySystemLibrary : public UBlueprintFunctionLibrary
 public:
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|Widget")
 	static UOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
-	
+
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|Widget")
 	static UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const UObject* WorldContextObject);
 
@@ -29,4 +29,7 @@ public:
 		ECharacterClass CharacterClass,
 		float Level,
 		UAbilitySystemComponent* ASC);
+
+	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static void GiveStartupAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* ASC);
 };
