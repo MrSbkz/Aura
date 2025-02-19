@@ -20,5 +20,12 @@ public:
 	virtual void Execute_Implementation(
 		const FGameplayEffectCustomExecutionParameters& ExecutionParams,
 		FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
-	
+
+
+private:
+	static void CalculateAttributeMagnitude(
+		const FGameplayEffectCustomExecutionParameters&,
+		const FGameplayEffectAttributeCaptureDefinition& Attribute,
+		const FAggregatorEvaluateParameters& EvaluateParameters,
+		float& Value);
 };
