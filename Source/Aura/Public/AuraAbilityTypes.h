@@ -3,6 +3,10 @@
 #include "GameplayEffectTypes.h"
 #include "AuraAbilityTypes.generated.h"
 
+/**
+ * To use a custom GameplayEffectContext create a custom AbilitySystemGlobals class
+ * and return it in the AllocGameplayEffectContext function
+ */
 USTRUCT(BlueprintType)
 struct FAuraGameplayEffectContext : public FGameplayEffectContext
 {
@@ -46,7 +50,7 @@ protected:
 };
 
 template<>
-struct FStructOpsTypeTraits<FAuraGameplayEffectContext> : public TStructOpsTypeTraitsBase2<FAuraGameplayEffectContext>
+struct TStructOpsTypeTraits<FAuraGameplayEffectContext> : public TStructOpsTypeTraitsBase2<FAuraGameplayEffectContext>
 {
 	enum
 	{
