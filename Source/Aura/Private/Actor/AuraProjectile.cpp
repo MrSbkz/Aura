@@ -51,12 +51,7 @@ void AAuraProjectile::Destroyed()
 			LoopingSoundComponent->Stop();
 		}
 	}
-
-	// Maybe this solution preferred because the sound doesn't stop playing 
-	// if(LoopingSoundComponent)
-	// {
-	// 	LoopingSoundComponent->Stop();
-	// }
+	
 	Super::Destroyed();
 }
 
@@ -68,9 +63,19 @@ void AAuraProjectile::OnSphereOverlap(
 	bool bFromSweep,
 	const FHitResult& SweepResult)
 {
-	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator());
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
-	LoopingSoundComponent->Stop();
+	if (!DamageEffectSpecHandle.Data.IsValid() || DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor)
+	{
+		return;
+	}
+	if (!bHit)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator());
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+		if (LoopingSoundComponent)
+		{
+			LoopingSoundComponent->Stop();
+		}
+	}
 
 	if (HasAuthority())
 	{
