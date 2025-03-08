@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class AURA_API UBTService_FindNearestPlayer : public UBTService_BlueprintBase
+class AURA_API UBTService_FindNearestPlayer : public UBTService
 {
 	GENERATED_BODY()
 
