@@ -205,7 +205,7 @@ UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 
 void AAuraPlayerController::AutoRun()
 {
-	// To make it work on the client side you need to go to
+	// To make it work on the client side go to
 	// Editor->Project Settings->Navigation System->Set Allow Client Side Navigation to true
 
 	if (!bAutoRunning) return;
