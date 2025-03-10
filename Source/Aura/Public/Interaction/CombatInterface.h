@@ -8,7 +8,7 @@
 
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI, BlueprintType)
+UINTERFACE(MinimalAPI)
 class UCombatInterface : public UInterface
 {
 	GENERATED_BODY()
