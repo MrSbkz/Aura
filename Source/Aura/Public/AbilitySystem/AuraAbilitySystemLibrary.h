@@ -48,9 +48,21 @@ public:
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
-	static void SetIsBlockedHit(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit);
+	static void SetIsBlockedHit(
+		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		bool bInIsBlockedHit);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
-	static void SetIsCriticalHit(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, bool bInIsCriticalHit);
+	static void SetIsCriticalHit(
+		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		bool bInIsCriticalHit);
+
+	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayMechanics")
+	static void GetLivePlayersWithinRadius(
+		const UObject* WorldContextObject,
+		TArray<AActor*>& OutOverlappingActors,
+		const TArray<AActor*>& ActorsToIgnore,
+		float Radius,
+		const FVector& SphereOrigin);
 };
