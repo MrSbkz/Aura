@@ -144,11 +144,48 @@ void UAuraAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& Ef
 	}
 }
 
-void UAuraAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& EffectContextHandle,
-                                                 bool bInIsCriticalHit)
+void UAuraAbilitySystemLibrary::SetIsCriticalHit(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	bool bInIsCriticalHit)
 {
 	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
 		AuraContext->SetIsCriticalHit(bInIsCriticalHit);
+	}
+}
+
+void UAuraAbilitySystemLibrary::GetLivePlayersWithinRadius(
+	const UObject* WorldContextObject,
+	TArray<AActor*>& OutOverlappingActors,
+	const TArray<AActor*>& ActorsToIgnore,
+	float Radius,
+	const FVector& SphereOrigin)
+{
+	// The code based on UGameplayStatics::ApplyRadialDamageWithFalloff logic
+	FCollisionQueryParams SphereParams;
+	SphereParams.AddIgnoredActors(ActorsToIgnore);
+
+	// query scene to see what we hit
+	if (const UWorld* World = GEngine->GetWorldFromContextObject(
+		WorldContextObject,
+		EGetWorldErrorMode::LogAndReturnNull))
+	{
+		TArray<FOverlapResult> Overlaps;
+		World->OverlapMultiByObjectType(
+			Overlaps,
+			SphereOrigin,
+			FQuat::Identity,
+			FCollisionObjectQueryParams(FCollisionObjectQueryParams::InitType::AllDynamicObjects),
+			FCollisionShape::MakeSphere(Radius),
+			SphereParams);
+
+		for (FOverlapResult& Overlap : Overlaps)
+		{
+			if (Overlap.GetActor()->Implements<UCombatInterface>()
+				&& !ICombatInterface::Execute_IsDead(Overlap.GetActor()))
+			{
+				OutOverlappingActors.AddUnique(Overlap.GetActor());
+			}
+		}
 	}
 }
