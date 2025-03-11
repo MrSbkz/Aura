@@ -32,7 +32,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual FVector GetCombatSocketLocation() override;
+	virtual FVector GetCombatSocketLocation_Implementation() override;
 
 	virtual void InitAbilityActorInfo();
 	virtual void InitializeDefaultAttributes() const;
