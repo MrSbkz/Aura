@@ -201,7 +201,7 @@ void UExecCalc_Damage::Execute_Implementation(
 	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitDamage : Damage;
 
 	const FGameplayModifierEvaluatedData EvaluatedData(
-		UAuraAttributeSet::GetIncomingDameAttribute(),
+		UAuraAttributeSet::GetIncomingDamageAttribute(),
 		EGameplayModOp::Additive,
 		Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluatedData);

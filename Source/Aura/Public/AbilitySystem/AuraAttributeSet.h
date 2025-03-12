@@ -154,8 +154,8 @@ public:
 	 */
 
 	UPROPERTY(BlueprintReadOnly, Category="Meta Attributes")
-	FGameplayAttributeData IncomingDame;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDame);
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDamage);
 
 	/*
 	 * Resistance Attributes
