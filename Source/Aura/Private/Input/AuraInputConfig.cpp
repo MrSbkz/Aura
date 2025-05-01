@@ -1,6 +1,7 @@
 // Copyright PK
 
 #include "Input/AuraInputConfig.h"
+#include "Aura/AuraLogChannels.h"
 
 const UInputAction* UAuraInputConfig::FindAbilityInputActionForTag(
 	const FGameplayTag& InputTag,
@@ -16,7 +17,7 @@ const UInputAction* UAuraInputConfig::FindAbilityInputActionForTag(
 
 	if (bLogNotFound)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Can't find AbilityInputAction for InputTag: [%s], on InputConfig [%s]"),
+		UE_LOG(LogAura, Error, TEXT("Can't find AbilityInputAction for InputTag: [%s], on InputConfig [%s]"),
 		       *InputTag.ToString(),
 		       *GetNameSafe(this));
 	}
