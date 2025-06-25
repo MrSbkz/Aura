@@ -14,7 +14,9 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCooldownChangeSignature, float, Tim
 
 
 /**
- * 
+ * UWaitCooldownChange is a blueprint async action class used to wait for cooldown changes
+ * associated with a specific GameplayTag on an Ability System Component (ASC).
+ * It enables event-driven gameplay behavior by broadcasting events when a cooldown starts or ends.
  */
 UCLASS(BlueprintType, meta=(ExposedAsyncProxy="AsyncTask"))
 class AURA_API UWaitCooldownChange : public UBlueprintAsyncActionBase
