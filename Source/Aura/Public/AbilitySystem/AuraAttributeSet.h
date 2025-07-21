@@ -55,7 +55,7 @@ struct FEffectProperties
  * typedef is specific to the FGameplayAttribute(), but TStaticFuncPtr is generic to any signature chosen
  * typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr AttributeFuncPointer;
 */
-template<class T>
+template <class T>
 using TStaticFuncPtr = TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr;
 
 UCLASS()
@@ -72,7 +72,7 @@ public:
 
 	// I would rather use TMap<FGameplayTag, FGameplayAttribute> TagsToAttributes; instead
 	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
-	
+
 	/*
 	 * Primary Attributes
 	*/
@@ -180,7 +180,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_PhysicalResistance, Category="Resistance Attributes")
 	FGameplayAttributeData PhysicalResistance;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, PhysicalResistance);
-	
+
 
 	UFUNCTION()
 	void OnRep_Strength(const FGameplayAttributeData& OldStrength) const;
@@ -245,4 +245,5 @@ public:
 private:
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props);
 	static void ShowFloatingText(const FEffectProperties& Props, float Damage, bool bCriticalHit, bool bBlockedHit);
+	void SendXPEvent(const FEffectProperties& Props);
 };
