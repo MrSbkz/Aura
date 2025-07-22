@@ -75,10 +75,7 @@ void AAuraCharacter::AddToXP_Implementation(int32 InXP)
 
 void AAuraCharacter::LevelUp_Implementation()
 {
-	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
-	check(AuraPlayerState);
-
-	AuraPlayerState->AddToLevel(1);
+	
 }
 
 int32 AAuraCharacter::GetAttributePointsReward_Implementation(int32 Level) const
