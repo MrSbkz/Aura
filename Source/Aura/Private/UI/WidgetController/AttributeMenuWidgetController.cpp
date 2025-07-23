@@ -1,6 +1,8 @@
 // Copyright PK
 
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
+
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/Data/AttributeInfo.h"
 #include "Player/AuraPlayerState.h"
@@ -43,6 +45,12 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 
 	const AAuraPlayerState* AuraPlayerState = CastChecked<AAuraPlayerState>(PlayerState);
 	OnAttributePointsChangedDelegate.Broadcast(AuraPlayerState->GetAttributePoints());
+}
+
+void UAttributeMenuWidgetController::UpgradeAttribute(const FGameplayTag& AttributeTag)
+{
+	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
+	AuraASC->UpgradeAttribute(AttributeTag);
 }
 
 void UAttributeMenuWidgetController::BroadcastAttributeInfo(
