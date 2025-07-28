@@ -12,6 +12,11 @@ DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTagsSignature, const FGameplayTa
 DECLARE_MULTICAST_DELEGATE(FAbilitiesGivenSignature);
 DECLARE_DELEGATE_OneParam(FForEachAbilitySignature, const FGameplayAbilitySpec&);
 
+DECLARE_MULTICAST_DELEGATE_TwoParams(FAbilityStatusChanged,
+                                     const FGameplayTag&/*AbilityTAg*/,
+                                     const FGameplayTag& /*StatusTag*/
+);
+
 UCLASS()
 class AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
@@ -22,6 +27,7 @@ public:
 
 	FEffectAssetTagsSignature EffectAssetTags;
 	FAbilitiesGivenSignature AbilitiesGiven;
+	FAbilityStatusChanged AbilityStatusChanged;
 
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 	void AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities);
@@ -49,5 +55,8 @@ protected:
 		const FGameplayEffectSpec& EffectSpec,
 		FActiveGameplayEffectHandle ActiveEffectHandle);
 
+	UFUNCTION(Client, Reliable)
+	void ClientUpdateAbilityStatus(const FGameplayTag& AbilityTag,const FGameplayTag& StatusTag);
+	
 	virtual void OnRep_ActivateAbilities() override;
 };
