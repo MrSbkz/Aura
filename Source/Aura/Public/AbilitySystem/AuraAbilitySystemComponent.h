@@ -12,9 +12,10 @@ DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTagsSignature, const FGameplayTa
 DECLARE_MULTICAST_DELEGATE(FAbilitiesGivenSignature);
 DECLARE_DELEGATE_OneParam(FForEachAbilitySignature, const FGameplayAbilitySpec&);
 
-DECLARE_MULTICAST_DELEGATE_TwoParams(FAbilityStatusChanged,
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FAbilityStatusChanged,
                                      const FGameplayTag&/*AbilityTAg*/,
-                                     const FGameplayTag& /*StatusTag*/
+                                     const FGameplayTag& /*StatusTag*/,
+                                     const int32 /*AbilityLevel*/
 );
 
 UCLASS()
@@ -42,6 +43,9 @@ public:
 	UFUNCTION(Server, Reliable)
 	void ServerUpgradeAttribute(const FGameplayTag& AttributeTag);
 
+	UFUNCTION(Server, Reliable)
+	void ServerSpendSpellPoint(const FGameplayTag& AbilityTag);
+
 	static FGameplayTag GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	static FGameplayTag GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	static FGameplayTag GetStatusFromSpec(const FGameplayAbilitySpec& AbilitySpec);
@@ -56,7 +60,10 @@ protected:
 		FActiveGameplayEffectHandle ActiveEffectHandle);
 
 	UFUNCTION(Client, Reliable)
-	void ClientUpdateAbilityStatus(const FGameplayTag& AbilityTag,const FGameplayTag& StatusTag);
-	
+	void ClientUpdateAbilityStatus(
+		const FGameplayTag& AbilityTag,
+		const FGameplayTag& StatusTag,
+		const int32 AbilityLevel);
+
 	virtual void OnRep_ActivateAbilities() override;
 };
