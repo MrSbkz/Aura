@@ -7,8 +7,12 @@
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "SpellMenuWidgetController.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FSpellGlobeSelectedSignature, bool, bSpellPointsButtonEnabled, bool,
-                                             bEquipButtonEnabled);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(
+	FSpellGlobeSelectedSignature,
+	bool, bSpellPointsButtonEnabled,
+	bool, bEquipButtonEnabled,
+	FString, Description,
+	FString, NextLevelDescription);
 
 
 struct FSelectedAbility
@@ -41,7 +45,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpendPointButtonPressed();
 
-private:
+private:	
 	static void ShouldEnableButtons(
 		const FGameplayTag& AbilityStatus,
 		int32 SpellPoints,

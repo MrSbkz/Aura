@@ -32,13 +32,16 @@ public:
 
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 	void AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities);
-
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 	void ForEachAbility(const FForEachAbilitySignature& Delegate);
 	void UpgradeAttribute(const FGameplayTag& AttributeTag);
 	void UpdateAbilityStatuses(int32 Level);
 	FGameplayAbilitySpec* GetSpecFromAbilityTag(const FGameplayTag& AbilityTag);
+	bool GetDescriptionsByAbilityTag(
+		const FGameplayTag& AbilityTag,
+		FString& OutDescription,
+		FString& OutNextLevelDescription);
 
 	UFUNCTION(Server, Reliable)
 	void ServerUpgradeAttribute(const FGameplayTag& AttributeTag);
