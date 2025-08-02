@@ -15,6 +15,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(
 	FString, NextLevelDescription);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitForEquipSelectionSignature, const FGameplayTag&, AbilityType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSpellGlobeReassignedSignature, const FGameplayTag&, AbilityTag);
 
 struct FSelectedAbility
 {
@@ -34,14 +35,17 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FSpellGlobeSelectedSignature SpellGlobeSelectedDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable)
 	FOnPlayerStatChangedSignature OnSpellPointsChanged;
 
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable)
 	FWaitForEquipSelectionSignature WaitForEquipDelegate;
 
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable)
 	FWaitForEquipSelectionSignature StopWaitingForEquipDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FSpellGlobeReassignedSignature SpellGlobeReassignedDelegate;
 
 	virtual void BindCallbacksToDependencies() override;
 	virtual void BroadcastInitialValues() override;
