@@ -14,6 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(
 	FString, Description,
 	FString, NextLevelDescription);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitForEquipSelectionSignature, const FGameplayTag&, AbilityType);
 
 struct FSelectedAbility
 {
@@ -36,6 +37,12 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOnPlayerStatChangedSignature OnSpellPointsChanged;
 
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FWaitForEquipSelectionSignature WaitForEquipDelegate;
+
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FWaitForEquipSelectionSignature StopWaitingForEquipDelegate;
+
 	virtual void BindCallbacksToDependencies() override;
 	virtual void BroadcastInitialValues() override;
 
@@ -47,6 +54,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SpendPointButtonPressed();
+
+	UFUNCTION(BlueprintCallable)
+	void EquipButtonPressed();
+	
 
 private:	
 	static void ShouldEnableButtons(
@@ -61,4 +72,5 @@ private:
 	};
 
 	int32 CurrentSpellPoints = 0;
+	bool bWaitingForEquipSelection = false;
 };

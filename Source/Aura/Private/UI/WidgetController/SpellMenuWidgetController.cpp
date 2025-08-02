@@ -2,7 +2,6 @@
 
 
 #include "UI/WidgetController/SpellMenuWidgetController.h"
-
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
@@ -23,9 +22,13 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 				FString Description;
 				FString NextLevelDescription;
 				GetAuraASC()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
-				SpellGlobeSelectedDelegate.Broadcast(bEnableSpellPoints, bEnableEquip, Description, NextLevelDescription);
+				SpellGlobeSelectedDelegate.Broadcast(
+					bEnableSpellPoints,
+					bEnableEquip,
+					Description,
+					NextLevelDescription);
 			}
-			
+
 			if (AbilityInfo)
 			{
 				FAuraAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(AbilityTag);
@@ -39,11 +42,11 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 		{
 			OnSpellPointsChanged.Broadcast(SpellPoints);
 			CurrentSpellPoints = SpellPoints;
-			
+
 			bool bEnableSpellPoints = false;
 			bool bEnableEquip = false;
 			ShouldEnableButtons(SelectedAbility.Status, CurrentSpellPoints, bEnableSpellPoints, bEnableEquip);
-			
+
 			FString Description;
 			FString NextLevelDescription;
 			GetAuraASC()->GetDescriptionsByAbilityTag(SelectedAbility.Ability, Description, NextLevelDescription);
@@ -60,6 +63,12 @@ void USpellMenuWidgetController::BroadcastInitialValues()
 
 void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityTag)
 {
+	if (bWaitingForEquipSelection)
+	{
+		const FGameplayTag SelectedAbilityType = AbilityInfo->FindAbilityInfoForTag(AbilityTag).AbilityTypeTag;
+		StopWaitingForEquipDelegate.Broadcast(SelectedAbilityType);
+	}
+
 	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
 	const int32 SpellPoints = GetAuraPS()->GetSpellPoints();
 	FGameplayTag AbilityStatus;
@@ -87,6 +96,7 @@ void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityT
 
 	// TODO: this code doesn't work on a client site, GameMode is nullptr
 	// Potential solution - move logic to the AuraASC and Broadcast it
+	// Another solution is passing AbilityInfo to the GetDescriptionsByAbilityTag method and use it there
 	FString Description;
 	FString NextLevelDescription;
 	GetAuraASC()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
@@ -95,6 +105,12 @@ void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityT
 
 void USpellMenuWidgetController::GlobeDeselect()
 {
+	if (bWaitingForEquipSelection)
+	{
+		const FGameplayTag SelectedAbilityType = AbilityInfo->FindAbilityInfoForTag(SelectedAbility.Ability).AbilityTypeTag;
+		StopWaitingForEquipDelegate.Broadcast(SelectedAbilityType);
+		bWaitingForEquipSelection = false;
+	}
 	SelectedAbility.Ability = FAuraGameplayTags::Get().Abilities_None;
 	SelectedAbility.Status = FAuraGameplayTags::Get().Abilities_Status_Locked;
 
@@ -104,6 +120,14 @@ void USpellMenuWidgetController::GlobeDeselect()
 void USpellMenuWidgetController::SpendPointButtonPressed()
 {
 	GetAuraASC()->ServerSpendSpellPoint(SelectedAbility.Ability);
+}
+
+void USpellMenuWidgetController::EquipButtonPressed()
+{
+	const FGameplayTag AbilityType = AbilityInfo->FindAbilityInfoForTag(SelectedAbility.Ability).AbilityTypeTag;
+
+	WaitForEquipDelegate.Broadcast(AbilityType);
+	bWaitingForEquipSelection = true;
 }
 
 void USpellMenuWidgetController::ShouldEnableButtons(
@@ -129,5 +153,5 @@ void USpellMenuWidgetController::ShouldEnableButtons(
 	{
 		bShouldEnableEquipButton = true;
 		bShouldEnableSpellPointsButton = SpellPoints > 0;
-	}	
+	}
 }
