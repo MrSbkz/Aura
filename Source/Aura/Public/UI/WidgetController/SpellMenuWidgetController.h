@@ -61,18 +61,18 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpellRowGlobePressed(const FGameplayTag& SlotTag/*InputTag*/, const FGameplayTag& AbilityType);	
 
-	
-	void OnAbilityEquipped(
-		const FGameplayTag& AbilityTag,
-		const FGameplayTag& Status,
-		const FGameplayTag& Slot,
-		const FGameplayTag& PrevSlot);
 private:	
 	static void ShouldEnableButtons(
 		const FGameplayTag& AbilityStatus,
 		int32 SpellPoints,
 		bool& bShouldEnableSpellPointsButton,
 		bool& bShouldEnableEquipButton);
+	
+	void OnAbilityEquipped(
+		const FGameplayTag& AbilityTag,
+		const FGameplayTag& Status,
+		const FGameplayTag& Slot,
+		const FGameplayTag& PrevSlot);
 
 	FSelectedAbility SelectedAbility = {
 		FAuraGameplayTags::Get().Abilities_None,
