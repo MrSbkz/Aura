@@ -178,6 +178,8 @@ void USpellMenuWidgetController::OnAbilityEquipped(
 	AbilityInfoDelegate.Broadcast(Info);
 
 	StopWaitingForEquipDelegate.Broadcast(Info.AbilityTypeTag);
+	SpellGlobeReassignedDelegate.Broadcast(AbilityTag);
+	GlobeDeselect();
 }
 
 void USpellMenuWidgetController::ShouldEnableButtons(
