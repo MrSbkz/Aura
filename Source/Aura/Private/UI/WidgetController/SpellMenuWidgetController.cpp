@@ -5,7 +5,6 @@
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
-#include "AbilitySystem/Data/AttributeInfo.h"
 #include "Player/AuraPlayerState.h"
 
 void USpellMenuWidgetController::BindCallbacksToDependencies()
@@ -163,7 +162,7 @@ void USpellMenuWidgetController::OnAbilityEquipped(
 {
 	bWaitingForEquipSelection = false;
 
-	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
+	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
 
 	FAuraAbilityInfo LastSlotInfo;
 	LastSlotInfo.StatusTag = GameplayTags.Abilities_Status_Unlocked;
