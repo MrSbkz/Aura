@@ -250,6 +250,56 @@ void UAuraAbilitySystemLibrary::SetIsCriticalHit(
 	}
 }
 
+void UAuraAbilitySystemLibrary::SetIsSuccessfulDebuff(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	bool bInIsSuccessfulDebuff)
+{
+	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		AuraContext->SetIsSuccessfulDebuff(bInIsSuccessfulDebuff);
+	}
+}
+
+void UAuraAbilitySystemLibrary::SetDebuffDamage(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	float InDebuffDamage)
+{
+	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		AuraContext->SetDebuffDamage(InDebuffDamage);
+	}
+}
+
+void UAuraAbilitySystemLibrary::SetDebuffDuration(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	float InDebuffDuration)
+{
+	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		AuraContext->SetDebuffDuration(InDebuffDuration);
+	}
+}
+
+void UAuraAbilitySystemLibrary::SetDebuffFrequency(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	float InDebuffFrequency)
+{
+	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		AuraContext->SetDebuffFrequency(InDebuffFrequency);
+	}
+}
+
+void UAuraAbilitySystemLibrary::SetDamageType(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	const FGameplayTag& InDamageType)
+{
+	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		AuraContext->SetDamageType(MakeShared<FGameplayTag>(InDamageType));
+	}	
+}
+
 void UAuraAbilitySystemLibrary::GetLivePlayersWithinRadius(
 	const UObject* WorldContextObject,
 	TArray<AActor*>& OutOverlappingActors,
