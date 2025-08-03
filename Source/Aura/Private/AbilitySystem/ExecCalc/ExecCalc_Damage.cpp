@@ -252,13 +252,13 @@ void UExecCalc_Damage::DetermineDebuff(
 				UAuraAbilitySystemLibrary::SetDamageType(EffectContextHandle, DamageType);
 
 				const float DebuffDDamage = Spec.GetSetByCallerMagnitude(GameplayTags.Debuff_Damage, false);
-				UAuraAbilitySystemLibrary::SetDebuffDuration(EffectContextHandle, DebuffDDamage);
+				UAuraAbilitySystemLibrary::SetDebuffDamage(EffectContextHandle, DebuffDDamage);
 
 				const float DebuffDuration = Spec.GetSetByCallerMagnitude(GameplayTags.Debuff_Duration, false);
 				UAuraAbilitySystemLibrary::SetDebuffDuration(EffectContextHandle, DebuffDuration);
 
 				const float DebuffFrequency = Spec.GetSetByCallerMagnitude(GameplayTags.Debuff_Frequency, false);
-				UAuraAbilitySystemLibrary::SetDebuffDuration(EffectContextHandle, DebuffFrequency);
+				UAuraAbilitySystemLibrary::SetDebuffFrequency(EffectContextHandle, DebuffFrequency);
 			}
 		}
 	}
