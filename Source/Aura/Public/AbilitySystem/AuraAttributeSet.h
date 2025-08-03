@@ -245,9 +245,12 @@ public:
 	void OnRep_PhysicalResistance(const FGameplayAttributeData& OldPhysicalResistance) const;
 
 private:
+	void HandleIncomingDamage(const FEffectProperties& Props);
+	void HandleIncomingXP(const FEffectProperties& Props);
+	void HandleDebuff(const FEffectProperties& Props);
 	static void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props);
 	static void ShowFloatingText(const FEffectProperties& Props, float Damage, bool bCriticalHit, bool bBlockedHit);
-	void SendXPEvent(const FEffectProperties& Props);
+	static void SendXPEvent(const FEffectProperties& Props);
 	bool bTopOffHealth = false;
 	bool bTopOffMana = false;
 };
