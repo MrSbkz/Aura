@@ -46,5 +46,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
 	float DebuffDuration = 5.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Damage")
+	float DeathImpulseMagnitude = 60.f;
 	
 };
