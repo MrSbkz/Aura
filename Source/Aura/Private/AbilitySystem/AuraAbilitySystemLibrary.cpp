@@ -232,6 +232,17 @@ FGameplayTag UAuraAbilitySystemLibrary::GetDamageType(const FGameplayEffectConte
 	return FGameplayTag();
 }
 
+FVector UAuraAbilitySystemLibrary::GetDeathImpulse(const FGameplayEffectContextHandle& EffectContextHandle)
+{
+	if (const FAuraGameplayEffectContext* AuraContext = static_cast<const FAuraGameplayEffectContext*>(
+		EffectContextHandle.Get()))
+	{
+		return AuraContext->GetDeathImpulse();
+	}
+
+	return FVector::ZeroVector;
+}
+
 void UAuraAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit)
 {
 	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -297,7 +308,17 @@ void UAuraAbilitySystemLibrary::SetDamageType(
 	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
 		AuraContext->SetDamageType(MakeShared<FGameplayTag>(InDamageType));
-	}	
+	}
+}
+
+void UAuraAbilitySystemLibrary::SetDeathImpulse(
+	FGameplayEffectContextHandle& EffectContextHandle,
+	const FVector& InDeathImpulse)
+{
+	if (FAuraGameplayEffectContext* AuraContext = static_cast<FAuraGameplayEffectContext*>(EffectContextHandle.Get()))
+	{
+		AuraContext->SetDeathImpulse(InDeathImpulse);
+	}
 }
 
 void UAuraAbilitySystemLibrary::GetLivePlayersWithinRadius(
@@ -351,6 +372,8 @@ FGameplayEffectContextHandle UAuraAbilitySystemLibrary::ApplyDamageEffect(const 
 
 	FGameplayEffectContextHandle ContextHandle = DamageEffectParams.SourceAbilitySystemComponent->MakeEffectContext();
 	ContextHandle.AddSourceObject(SourceAvatarActor);
+
+	SetDeathImpulse(ContextHandle, DamageEffectParams.DeathImpulse);
 
 	FGameplayEffectSpecHandle SpecHandle = DamageEffectParams.SourceAbilitySystemComponent->MakeOutgoingSpec(
 		DamageEffectParams.DamageGameplayEffectClass,

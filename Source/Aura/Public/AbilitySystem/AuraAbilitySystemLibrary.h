@@ -75,6 +75,9 @@ public:
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static FGameplayTag GetDamageType(const FGameplayEffectContextHandle& EffectContextHandle);
 
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayEffects")
+	static FVector GetDeathImpulse(const FGameplayEffectContextHandle& EffectContextHandle);
+
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetIsBlockedHit(
@@ -116,6 +119,12 @@ public:
 	static void SetDamageType(
 		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
 		const FGameplayTag& InDamageType);
+
+	// UPARAM macros is needed to set a parameter as Input param if param is not const
+	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
+	static void SetDeathImpulse(
+		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		const FVector& InDeathImpulse);
 
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayMechanics")
 	static void GetLivePlayersWithinRadius(
