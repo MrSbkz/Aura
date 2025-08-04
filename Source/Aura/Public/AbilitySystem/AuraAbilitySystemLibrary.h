@@ -78,6 +78,12 @@ public:
 	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static FVector GetDeathImpulse(const FGameplayEffectContextHandle& EffectContextHandle);
 
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayEffects")
+	static float GetKnockbackForceMagnitude(const FGameplayEffectContextHandle& EffectContextHandle);
+
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayEffects")
+	static FVector GetKnockbackForce(const FGameplayEffectContextHandle& EffectContextHandle);
+
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetIsBlockedHit(
@@ -125,6 +131,18 @@ public:
 	static void SetDeathImpulse(
 		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
 		const FVector& InDeathImpulse);
+
+	// UPARAM macros is needed to set a parameter as Input param if param is not const
+	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
+	static void SetKnockbackForceMagnitude(
+		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		float InKnockbackForceMagnitude);
+
+	// UPARAM macros is needed to set a parameter as Input param if param is not const
+	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
+	static void SetKnockbackForce(
+		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		const FVector& InKnockbackForce);
 
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayMechanics")
 	static void GetLivePlayersWithinRadius(
