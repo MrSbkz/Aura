@@ -23,11 +23,16 @@ void UDebuffNiagaraComponent::BeginPlay()
 	}
 	else if (CombatInterface)
 	{
-		CombatInterface->GetOnAscRegisteredDelegate().AddWeakLambda(this,
+		CombatInterface->GetOnAscRegisteredDelegate().AddWeakLambda(
+			this,
 			[this](UAbilitySystemComponent* InASC)
 			{
-				InASC->RegisterGameplayTagEvent(DebuffTag, EGameplayTagEventType::NewOrRemoved)
-					.AddUObject(this, &UDebuffNiagaraComponent::DebuffTagChanged);
+				InASC->RegisterGameplayTagEvent(
+					     DebuffTag,
+					     EGameplayTagEventType::NewOrRemoved)
+				     .AddUObject(
+					     this,
+					     &UDebuffNiagaraComponent::DebuffTagChanged);
 			}
 		);
 	}
@@ -40,7 +45,10 @@ void UDebuffNiagaraComponent::BeginPlay()
 
 void UDebuffNiagaraComponent::DebuffTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
 {
-	if (NewCount > 0)
+	const bool IsOwnerValid = IsValid(GetOwner());
+	const bool IsOwnerAlive = GetOwner()->Implements<UCombatInterface>() && !ICombatInterface::Execute_IsDead(GetOwner());
+
+	if (NewCount > 0 && IsOwnerValid && IsOwnerAlive)
 	{
 		Activate();
 	}
