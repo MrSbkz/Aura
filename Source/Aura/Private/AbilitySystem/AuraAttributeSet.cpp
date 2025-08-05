@@ -328,6 +328,10 @@ void UAuraAttributeSet::HandleDebuff(const FEffectProperties& Props)
 	const float DebuffFrequency = UAuraAbilitySystemLibrary::GetDebuffFrequency(Props.EffectContextHandle);
 
 	const FString DebuffName = FString::Printf(TEXT("DynamicDebuff_%s"), *DamageType.ToString());
+
+	// TODO: Dynamically created effect is not replicated
+	// I'll need to find another way to apply a debuff effect
+	// I think I'll need to create separate debuff effect(BP version) and apply it in the Gameplay Ability
 	UGameplayEffect* Effect = NewObject<UGameplayEffect>(GetTransientPackage(), FName(DebuffName));
 
 	Effect->DurationPolicy = EGameplayEffectDurationType::HasDuration;
