@@ -24,8 +24,9 @@ class AURA_API UAuraAbilitySystemLibrary : public UBlueprintFunctionLibrary
 
 public:
 	UFUNCTION(BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"), Category="AuraAbilitySystemLibrary|Widget")
-	static bool MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, AAuraHUD*& OutAuraHUD);
-	
+	static bool MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams,
+	                                       AAuraHUD*& OutAuraHUD);
+
 	UFUNCTION(BlueprintPure, meta = (DefaultToSelf = "WorldContextObject"), Category="AuraAbilitySystemLibrary|Widget")
 	static UOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
 
@@ -87,61 +88,71 @@ public:
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetIsBlockedHit(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		bool bInIsBlockedHit);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetIsCriticalHit(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		bool bInIsCriticalHit);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetIsSuccessfulDebuff(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		bool bInIsSuccessfulDebuff);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetDebuffDamage(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		float InDebuffDamage);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetDebuffDuration(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		float InDebuffDuration);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetDebuffFrequency(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		float InDebuffFrequency);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetDamageType(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		const FGameplayTag& InDamageType);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetDeathImpulse(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		const FVector& InDeathImpulse);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetKnockbackForceMagnitude(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		float InKnockbackForceMagnitude);
 
 	// UPARAM macros is needed to set a parameter as Input param if param is not const
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayEffects")
 	static void SetKnockbackForce(
-		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,
+		UPARAM(ref)
+		FGameplayEffectContextHandle& EffectContextHandle,
 		const FVector& InKnockbackForce);
 
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|GameplayMechanics")
@@ -157,7 +168,21 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|DamageEffect")
 	static FGameplayEffectContextHandle ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams);
-	
+
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayMechanics")
+	static TArray<FRotator> EvenlySpacedRotators(
+		const FVector& Forward,
+		const FVector& Axis,
+		float Spread,
+		int32 NumRotators);
+
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|GameplayMechanics")
+	static TArray<FVector> EvenlyRotatedVectors(
+		const FVector& Forward,
+		const FVector& Axis,
+		const float Spread,
+		int32 NumVectors);
+
 	static int32 GetXPRewardForClassAndLevel(
 		const UObject* WorldContextObject,
 		ECharacterClass CharacterClass,
