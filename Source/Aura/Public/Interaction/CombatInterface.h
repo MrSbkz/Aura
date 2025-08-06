@@ -91,4 +91,7 @@ public:
 	// I return a reference as a non-reference delegate doesn't work
 	// Although the author returns a non-reference type in the lesson 
 	virtual FOnDeath& GetOnDeathDelegate() = 0;
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SetInShockLoop(bool bInLoop);
 };
