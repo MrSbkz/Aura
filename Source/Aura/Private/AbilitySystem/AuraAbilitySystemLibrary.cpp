@@ -409,6 +409,45 @@ bool UAuraAbilitySystemLibrary::IsNotFriend(const AActor* FirstActor, const AAct
 	return !(BothArePlayers || BothAreEnemies);
 }
 
+void UAuraAbilitySystemLibrary::GetClosestTargets(
+	const int32 MaxTargets,
+	const TArray<AActor*>& Actors,
+	const FVector& Origin,
+	TArray<AActor*>& OutClosestTargets)
+{
+	if (Actors.Num() <= MaxTargets)
+	{
+		OutClosestTargets = Actors;
+		return;
+	}
+
+	TArray<AActor*> ActorsToCheck = Actors;
+	int32 NumTargetsFound = 0;
+
+	while (NumTargetsFound < MaxTargets)
+	{
+		if (ActorsToCheck.Num() == 0)
+		{
+			break;
+		}
+
+		double ClosestDistance = TNumericLimits<double>::Max();
+		AActor* ClosestActor;
+		for (AActor* PotentialTarget : ActorsToCheck)
+		{
+			const double Distance = (PotentialTarget->GetActorLocation() - Origin).Length();
+			if (Distance < ClosestDistance)
+			{
+				ClosestDistance = Distance;
+				ClosestActor = PotentialTarget;
+			}
+		}
+		ActorsToCheck.Remove(ClosestActor);
+		OutClosestTargets.AddUnique(ClosestActor);
+		++NumTargetsFound;
+	}
+}
+
 FGameplayEffectContextHandle UAuraAbilitySystemLibrary::ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams)
 {
 	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
@@ -462,7 +501,7 @@ TArray<FRotator> UAuraAbilitySystemLibrary::EvenlySpacedRotators(
 	const int32 NumRotators)
 {
 	TArray<FRotator> Rotators;
-	
+
 	const FVector LeftOfSpread = Forward.RotateAngleAxis(-Spread / 2, Axis);
 	if (NumRotators > 1)
 	{
@@ -488,7 +527,7 @@ TArray<FVector> UAuraAbilitySystemLibrary::EvenlyRotatedVectors(
 	const int32 NumVectors)
 {
 	TArray<FVector> Vectors;
-	
+
 	const FVector LeftOfSpread = Forward.RotateAngleAxis(-Spread / 2, Axis);
 	if (NumVectors > 1)
 	{
