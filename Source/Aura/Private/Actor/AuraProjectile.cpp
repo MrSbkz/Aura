@@ -76,6 +76,11 @@ void AAuraProjectile::OnSphereOverlap(
 	bool bFromSweep,
 	const FHitResult& SweepResult)
 {
+	if (!DamageEffectParams.SourceAbilitySystemComponent)
+	{
+		return;
+	}
+	
 	AActor* SourceAvatarActor = DamageEffectParams.SourceAbilitySystemComponent->GetAvatarActor();
 	if (SourceAvatarActor == OtherActor || !UAuraAbilitySystemLibrary::IsNotFriend(SourceAvatarActor, OtherActor))
 	{
