@@ -96,6 +96,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UDebuffNiagaraComponent> BurnDebuffComponent;
 
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UDebuffNiagaraComponent> StunDebuffComponent;
+
 	/* Dissolve effect */
 	void Dissolve();
 
@@ -129,8 +132,14 @@ protected:
 
 	int32 MinionCount = 0;
 
+	UPROPERTY(ReplicatedUsing=OnRep_Burned, BlueprintReadOnly)
+	bool bIsBurned = false;
+
 	UPROPERTY(ReplicatedUsing=OnRep_Stunned, BlueprintReadOnly)
 	bool bIsStunned = false;
+
+	UFUNCTION()
+	virtual void OnRep_Burned();
 
 	UFUNCTION()
 	virtual void OnRep_Stunned();
