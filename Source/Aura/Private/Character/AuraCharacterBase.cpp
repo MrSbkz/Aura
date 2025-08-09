@@ -185,7 +185,7 @@ ECharacterClass AAuraCharacterBase::GetCharacterClass_Implementation()
 	return CharacterClass;
 }
 
-FOnASCRegistered AAuraCharacterBase::GetOnAscRegisteredDelegate()
+FOnASCRegistered& AAuraCharacterBase::GetOnAscRegisteredDelegate()
 {
 	return OnASCRegistered;
 }
