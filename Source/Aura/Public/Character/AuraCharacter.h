@@ -49,6 +49,7 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> CameraBoom;
 
+	virtual void OnRep_Burned() override;
 	virtual void OnRep_Stunned() override;
 
 	virtual void InitAbilityActorInfo() override;
