@@ -86,7 +86,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	ECharacterClass GetCharacterClass();
 
-	virtual FOnASCRegistered GetOnAscRegisteredDelegate() = 0;
+	virtual FOnASCRegistered& GetOnAscRegisteredDelegate() = 0;
 
 	// I return a reference as a non-reference delegate doesn't work
 	// Although the author returns a non-reference type in the lesson 
