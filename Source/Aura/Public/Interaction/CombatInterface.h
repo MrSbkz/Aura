@@ -97,4 +97,10 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	USkeletalMeshComponent* GetWeapon();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool IsBeingShocked();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetInBeingShocked(bool bInShock);
 };
