@@ -26,6 +26,7 @@ DECLARE_MULTICAST_DELEGATE_FourParams(FAbilityEquipped,
 );
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FDeactivatePassiveAbility, const FGameplayTag& /*AbilityTAg*/);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FActivatePassiveAbility, const FGameplayTag& /*AbilityTAg*/, bool /*bActivate*/);
 
 UCLASS()
 class AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
@@ -40,6 +41,7 @@ public:
 	FAbilityStatusChanged AbilityStatusChanged;
 	FAbilityEquipped AbilityEquipped;
 	FDeactivatePassiveAbility DeactivatePassiveAbility;
+	FActivatePassiveAbility ActivatePassiveAbility;
 
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 	void AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities);
@@ -88,7 +90,9 @@ public:
 	FGameplayAbilitySpec* GetSpecWithSlot(const FGameplayTag& Slot);
 	bool IsPassiveAbility(const FGameplayAbilitySpec& Spec) const;
 	static void AssignSlotToAbility(FGameplayAbilitySpec& Spec, const FGameplayTag& Slot);
-	
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void MulticastActivatePassiveEffect(const FGameplayTag& AbilityTag, bool bActivate);
 
 	bool bStartupAbilitiesGiven = false;
 
