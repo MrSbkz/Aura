@@ -539,7 +539,6 @@ FGameplayEffectContextHandle UAuraAbilitySystemLibrary::ApplyDamageEffect(const 
 	SetRadialDamageInnerRadius(ContextHandle, DamageEffectParams.RadialDamageInnerRadius);
 	SetRadialDamageOuterRadius(ContextHandle, DamageEffectParams.RadialDamageOuterRadius);
 	SetRadialDamageOrigin(ContextHandle, DamageEffectParams.RadialDamageOrigin);
-	
 
 	const FGameplayEffectSpecHandle SpecHandle = DamageEffectParams.SourceAbilitySystemComponent->MakeOutgoingSpec(
 		DamageEffectParams.DamageGameplayEffectClass,
