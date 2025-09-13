@@ -44,6 +44,8 @@ protected:
 		bool bFromSweep,
 		const FHitResult& SweepResult);
 
+	bool IsValidOverlap(const AActor* OtherActor) const;
+
 private:	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
