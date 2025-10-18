@@ -5,7 +5,6 @@
 
 void UMVVM_LoadSlot::InitializeSlot()
 {
-	auto TestValue = SlotStatus.GetIntValue();
 	SetWidgetSwitcherIndex.Broadcast(SlotStatus.GetIntValue());
 }
 
