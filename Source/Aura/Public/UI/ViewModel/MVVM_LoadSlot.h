@@ -36,11 +36,18 @@ public:
 	UPROPERTY()
 	TEnumAsByte<ESaveSlotStatus> SlotStatus;
 
-	/** Field Notifies */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, FieldNotify, Setter, Getter)
-	FString PlayerName;
-
 	void SetPlayerName(const FString& InPlayerName);
-
+	void SetMapName(const FString& InMapName);
+	
 	FString GetPlayerName() const { return PlayerName; }
+	FString GetMapName() const { return MapName; }
+
+
+private:
+	/** Field Notifies */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, FieldNotify, Setter, Getter, meta=(AllowPrivateAccess="true"))
+	FString PlayerName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, FieldNotify, Setter, Getter, meta=(AllowPrivateAccess="true"))
+	FString MapName;
 };
