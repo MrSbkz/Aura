@@ -27,6 +27,9 @@ public:
 	FString SlotName = FString();
 	
 	UPROPERTY()
+	FString MapName = FString("Default Map Name");
+	
+	UPROPERTY()
 	int32 IndexSlot = 0;
 
 	UPROPERTY()
