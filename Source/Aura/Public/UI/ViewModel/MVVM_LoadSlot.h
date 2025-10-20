@@ -36,6 +36,9 @@ public:
 	UPROPERTY()
 	TEnumAsByte<ESaveSlotStatus> SlotStatus;
 
+	UPROPERTY()
+	FName PlayerStartTag = FName();
+
 	void SetPlayerName(const FString& InPlayerName);
 	void SetMapName(const FString& InMapName);
 	
