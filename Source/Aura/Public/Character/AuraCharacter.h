@@ -45,6 +45,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
 
+protected:
+	void LoadProgress();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UCameraComponent> TopDownCameraComponent;
