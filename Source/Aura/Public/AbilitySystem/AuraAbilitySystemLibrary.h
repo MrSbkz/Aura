@@ -8,6 +8,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "AuraAbilitySystemLibrary.generated.h"
 
+class ULoadScreenSaveGame;
 class UAbilityInfo;
 class AAuraHUD;
 struct FWidgetControllerParams;
@@ -50,6 +51,12 @@ public:
 		ECharacterClass CharacterClass,
 		float Level,
 		UAbilitySystemComponent* ASC);
+	
+	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static void InitializeDefaultAttributesFromSaveData(
+		const UObject* WorldContextObject,
+		UAbilitySystemComponent* ASC,
+		ULoadScreenSaveGame* SaveGame);
 
 	UFUNCTION(BlueprintCallable, Category="AuraAbilitySystemLibrary|CharacterClassDefaults")
 	static void GiveStartupAbilities(
