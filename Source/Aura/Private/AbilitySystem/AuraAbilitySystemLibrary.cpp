@@ -7,6 +7,7 @@
 #include "AuraAbilityTypes.h"
 #include "AuraGameplayTags.h"
 #include "Game/AuraGameModeBase.h"
+#include "Game/LoadScreenSaveGame.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerState.h"
@@ -104,6 +105,62 @@ void UAuraAbilitySystemLibrary::InitializeDefaultAttributes(
 	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(
 		CharacterClassInfo->VitalAttributes,
 		Level,
+		ContextHandle);
+	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+}
+
+void UAuraAbilitySystemLibrary::InitializeDefaultAttributesFromSaveData(
+	const UObject* WorldContextObject,
+	UAbilitySystemComponent* ASC,
+	ULoadScreenSaveGame* SaveGame)
+{
+	const UCharacterClassInfo* CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
+	if (!CharacterClassInfo) return; // I'm on a client
+
+	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
+	const AActor* SourceAvatarActor = ASC->GetAvatarActor();
+
+	FGameplayEffectContextHandle ContextHandle = ASC->MakeEffectContext();
+	ContextHandle.AddSourceObject(SourceAvatarActor);
+
+	const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(
+		CharacterClassInfo->PrimaryAttributes_SetByCaller,
+		1.f,
+		ContextHandle);
+
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(
+		SpecHandle,
+		GameplayTags.Attributes_Primary_Strength,
+		SaveGame->Strength);
+
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(
+		SpecHandle,
+		GameplayTags.Attributes_Primary_Intelligence,
+		SaveGame->Intelligence);
+
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(
+		SpecHandle,
+		GameplayTags.Attributes_Primary_Resilience,
+		SaveGame->Resilience);
+
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(
+		SpecHandle,
+		GameplayTags.Attributes_Primary_Vigor,
+		SaveGame->Vigor);
+
+	ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
+	
+	ContextHandle.AddSourceObject(SourceAvatarActor);
+
+	const FGameplayEffectSpecHandle SecondaryAttributesSpecHandle = ASC->MakeOutgoingSpec(
+		CharacterClassInfo->SecondaryAttributes_Infinite,
+		1.f,
+		ContextHandle);
+	ASC->ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
+
+	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(
+		CharacterClassInfo->VitalAttributes,
+		1.f,
 		ContextHandle);
 	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
 }
