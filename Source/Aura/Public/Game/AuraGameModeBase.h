@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Interaction/SaveInterface.h"
 #include "AuraGameModeBase.generated.h"
 
 class ULoadScreenSaveGame;
@@ -13,7 +14,7 @@ class UAbilityInfo;
 class UCharacterClassInfo;
 
 UCLASS()
-class AURA_API AAuraGameModeBase : public AGameModeBase
+class AURA_API AAuraGameModeBase : public AGameModeBase, public ISaveInterface
 {
 	GENERATED_BODY()
 
@@ -24,6 +25,8 @@ public:
 	void TravelToMap(UMVVM_LoadSlot* Slot);
 	ULoadScreenSaveGame* RetrieveInGameSaveData() const;
 	void SaveInGameProgressData(ULoadScreenSaveGame* SaveObject);
+
+	void SaveWorldState(UWorld* World);
 
 	virtual AActor* ChoosePlayerStart_Implementation(AController* Player) override;
 	
