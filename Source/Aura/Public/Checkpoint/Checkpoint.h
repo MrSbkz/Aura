@@ -17,6 +17,8 @@ class AURA_API ACheckpoint : public APlayerStart
 public:
 	ACheckpoint(const FObjectInitializer& ObjectInitializer);
 
+	UPROPERTY(BlueprintReadOnly, SaveGame)
+	bool bReached = false;
 protected:
 	virtual void BeginPlay() override;
 	

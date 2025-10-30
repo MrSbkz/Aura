@@ -88,8 +88,8 @@ class AURA_API ULoadScreenSaveGame : public USaveGame
 	GENERATED_BODY()
 
 public:
-	FSavedMap GetSavedMapWithMapName(const FString& MapName);
-	bool HasMap(const FString& MapName);
+	FSavedMap GetSavedMapWithMapName(const FString& InMapName);
+	bool HasMap(const FString& InMapName);
 	
 	UPROPERTY()
 	FString SlotName = FString();
