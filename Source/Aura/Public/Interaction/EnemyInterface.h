@@ -17,9 +17,6 @@ class AURA_API IEnemyInterface
 	GENERATED_BODY()
 
 public:
-	virtual void HighlightActor() = 0;
-	virtual void UnHighlightActor() = 0;
-
 	// Called in the BTT_Attack task
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void SetCombatTarget(AActor* InCombatTarget);
