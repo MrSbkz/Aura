@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Character/AuraCharacterBase.h"
 #include "Interaction/EnemyInterface.h"
+#include "Interaction/HighlightInterface.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 #include "AuraEnemyCharacter.generated.h"
 
@@ -13,7 +14,7 @@ class UBehaviorTree;
 class AAuraAIController;
 
 UCLASS()
-class AURA_API AAuraEnemyCharacter : public AAuraCharacterBase, public IEnemyInterface
+class AURA_API AAuraEnemyCharacter : public AAuraCharacterBase, public IEnemyInterface, public IHighlightInterface
 {
 	GENERATED_BODY()
 
@@ -26,13 +27,16 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnAttributeChangedSignature OnMaxHealthChanged;
 
-	/** Enemy interface */
+	/** Highlight interface */
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
+	/** end Highlight interface */
+
+	/** Enemy interface */
 	virtual void SetCombatTarget_Implementation(AActor* InCombatTarget) override;
 	virtual AActor* GetCombatTarget_Implementation() const override;
 	/** end Enemy interface */
-	
+
 	/** Combat interface */
 	virtual int32 GetPlayerLevel_Implementation() override;
 	virtual void Die(const FVector& DeathImpulse) override;
