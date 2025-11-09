@@ -18,6 +18,13 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 
+enum class ETargetingStatus : uint8
+{
+	TargetingEnemy,
+	TargetingNonEnemy,
+	NotTargeting
+};
+
 UCLASS()
 class AURA_API AAuraPlayerController : public APlayerController
 {
@@ -66,13 +73,18 @@ private:
 	UAuraAbilitySystemComponent* GetASC();
 
 	void AutoRun();
+	void UpdateMagicCircleLocation() const;
+
+	static void HighlightActor(AActor* InActor);
+	static void UnHighlightActor(AActor* InActor);
 
 	FHitResult CursorHit;
 
-	void UpdateMagicCircleLocation();
+	UPROPERTY()
+	TObjectPtr<AActor> LastActor;
 
-	TScriptInterface<IHighlightInterface> LastActor;
-	TScriptInterface<IHighlightInterface> ThisActor;
+	UPROPERTY()
+	TObjectPtr<AActor> ThisActor;
 
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UAuraInputConfig> InputConfig;
@@ -84,7 +96,7 @@ private:
 	float FollowTime = 0.f;
 	float ShortPressThreshold = 0.5f;
 	bool bAutoRunning = false;
-	bool bTargeting = false;
+	ETargetingStatus TargetingStatus = ETargetingStatus::NotTargeting;
 
 	UPROPERTY(EditDefaultsOnly)
 	float AutoRunAcceptanceRadius = 50.f;
