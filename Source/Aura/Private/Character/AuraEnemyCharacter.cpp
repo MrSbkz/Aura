@@ -35,7 +35,7 @@ AAuraEnemyCharacter::AAuraEnemyCharacter()
 	BaseWalkSpeed = 250.f;
 }
 
-void AAuraEnemyCharacter::HighlightActor()
+void AAuraEnemyCharacter::HighlightActor_Implementation()
 {
 	GetMesh()->SetRenderCustomDepth(true);
 	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
@@ -43,7 +43,7 @@ void AAuraEnemyCharacter::HighlightActor()
 	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }
 
-void AAuraEnemyCharacter::UnHighlightActor()
+void AAuraEnemyCharacter::UnHighlightActor_Implementation()
 {
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
