@@ -78,7 +78,7 @@ void ACheckpoint::OnSphereOverlap(
 	{
 		bReached = true;
 
-		if (AAuraGameModeBase* AuraGM = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(this)))
+		if (const AAuraGameModeBase* AuraGM = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(this)))
 		{
 			AuraGM->SaveWorldState(GetWorld());
 		}
