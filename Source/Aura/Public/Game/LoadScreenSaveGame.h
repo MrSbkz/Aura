@@ -98,6 +98,9 @@ public:
 	FString MapName = FString("Default Map Name");
 	
 	UPROPERTY()
+	FString MapAssetName = FString("Default Map Asset Name");
+	
+	UPROPERTY()
 	int32 IndexSlot = 0;
 
 	UPROPERTY()

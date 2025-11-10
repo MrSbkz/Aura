@@ -25,11 +25,11 @@ public:
 	virtual void LoadActor_Implementation() override;
 	/** end Save Interface */
 
-	/** Save Interface */
+	/** Highlight Interface */
 	virtual void HighlightActor_Implementation() override;
 	virtual void UnHighlightActor_Implementation() override;
 	virtual void SetMoveToLocation_Implementation(FVector& OutDestination) override;
-	/** end Save Interface */
+	/** end Highlight Interface */
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USceneComponent> MoveToComponent;	
@@ -60,10 +60,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	int32 CustomDepthStencilOverride = CUSTOM_DEPTH_TAN;
 
-private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> CheckpointMesh;
-	
+
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
 };
